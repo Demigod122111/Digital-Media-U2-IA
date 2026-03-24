@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://01e5tvvm605k"]
+
+[ext_resource type="Script" uid="uid://cjpyjq6553tlq" path="res://scripts/ab_buttons.gd" id="1_dpwmc"]
+[ext_resource type="Texture2D" uid="uid://cm2bouj711ktr" path="res://sprites/buttons/B.png" id="2_v13jh"]
+[ext_resource type="Texture2D" uid="uid://bkrwnqndhl56d" path="res://sprites/buttons/B_pressed.png" id="3_y3t8n"]
+[ext_resource type="Texture2D" uid="uid://ixpdt8y0m0xw" path="res://sprites/buttons/A.png" id="4_o77eb"]
+[ext_resource type="Texture2D" uid="uid://bj8fdplr6mb3o" path="res://sprites/buttons/A_pressed.png" id="5_818m8"]
+
+[node name="ABButtons" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1075.0
+offset_bottom = -571.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+script = ExtResource("1_dpwmc")
+
+[node name="B" type="TouchScreenButton" parent="."]
+position = Vector2(0, 45)
+scale = Vector2(0.152, 0.133)
+texture_normal = ExtResource("2_v13jh")
+texture_pressed = ExtResource("3_y3t8n")
+passby_press = true
+action = "secondary"
+
+[node name="A" type="TouchScreenButton" parent="."]
+position = Vector2(45, 0)
+scale = Vector2(0.152, 0.133)
+texture_normal = ExtResource("4_o77eb")
+texture_pressed = ExtResource("5_818m8")
+passby_press = true
+action = "primary"

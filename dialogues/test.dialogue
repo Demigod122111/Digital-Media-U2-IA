@@ -1,0 +1,8 @@
+~ START
+Player: [shake rate=20 level=10]This is [[the ultimate|just a|merely a]] test![/shake]
+- A great test => T1
+- A bad test => END!
+
+~ T1
+[wave amp=25 freq=5]Just like all tests are meant to be![/wave]
+=> END!

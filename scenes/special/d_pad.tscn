@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://4ihqc8itno2i"]
+
+[ext_resource type="Script" uid="uid://col7benbdo21c" path="res://scripts/d_pad.gd" id="1_he8dy"]
+[ext_resource type="Texture2D" uid="uid://c6mei1rxfr1aa" path="res://sprites/buttons/left.png" id="2_yrjmp"]
+[ext_resource type="Texture2D" uid="uid://bxxotfbjkmlnn" path="res://sprites/buttons/left_pressed.png" id="3_iyh7f"]
+[ext_resource type="Texture2D" uid="uid://cjyibtdqduwth" path="res://sprites/buttons/down.png" id="4_26ces"]
+[ext_resource type="Texture2D" uid="uid://22u32ep58e33" path="res://sprites/buttons/down_pressed.png" id="5_1nmif"]
+[ext_resource type="Texture2D" uid="uid://brc0unxxvpgs0" path="res://sprites/buttons/right.png" id="6_l0to3"]
+[ext_resource type="Texture2D" uid="uid://clf5j3n2pi7sk" path="res://sprites/buttons/right_pressed.png" id="7_wt08n"]
+[ext_resource type="Texture2D" uid="uid://cmyy5npqdnxkg" path="res://sprites/buttons/up.png" id="8_kehcj"]
+[ext_resource type="Texture2D" uid="uid://sx4fu0h6rrhn" path="res://sprites/buttons/up_pressed.png" id="9_8a4cx"]
+
+[node name="DPad" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1030.0
+offset_bottom = -526.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(61, 60)
+mouse_filter = 2
+script = ExtResource("1_he8dy")
+
+[node name="Left" type="TouchScreenButton" parent="."]
+position = Vector2(0, 45)
+scale = Vector2(0.152, 0.133)
+texture_normal = ExtResource("2_yrjmp")
+texture_pressed = ExtResource("3_iyh7f")
+passby_press = true
+action = "left"
+
+[node name="Down" type="TouchScreenButton" parent="."]
+position = Vector2(45, 90)
+scale = Vector2(0.152, 0.133)
+texture_normal = ExtResource("4_26ces")
+texture_pressed = ExtResource("5_1nmif")
+passby_press = true
+action = "down"
+
+[node name="Right" type="TouchScreenButton" parent="."]
+position = Vector2(90, 45)
+scale = Vector2(0.152, 0.133)
+texture_normal = ExtResource("6_l0to3")
+texture_pressed = ExtResource("7_wt08n")
+passby_press = true
+action = "right"
+
+[node name="Up" type="TouchScreenButton" parent="."]
+position = Vector2(45, 0)
+scale = Vector2(0.152, 0.133)
+texture_normal = ExtResource("8_kehcj")
+texture_pressed = ExtResource("9_8a4cx")
+passby_press = true
+action = "up"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AnimationSheet" load_steps=3 format=3 uid="uid://c2o536nrt7hfy"]
+
+[ext_resource type="Script" uid="uid://fo1jsb063i8a" path="res://scripts/resources/animations/AnimationSheet.gd" id="1_hc1y2"]
+[ext_resource type="Texture2D" uid="uid://b7rrs7mejcnyj" path="res://sprites/player/idle.png" id="2_n2cim"]
+
+[resource]
+script = ExtResource("1_hc1y2")
+texture = ExtResource("2_n2cim")
+hframes = 4
+vframes = 3
+metadata/_custom_type_script = "uid://fo1jsb063i8a"

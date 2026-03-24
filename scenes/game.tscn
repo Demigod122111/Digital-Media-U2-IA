@@ -1,0 +1,83 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6r1u2idhgx5n"]
+
+[ext_resource type="PackedScene" uid="uid://cefx8583tdqnb" path="res://scenes/special/player.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://4ihqc8itno2i" path="res://scenes/special/d_pad.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://01e5tvvm605k" path="res://scenes/special/ab_buttons.tscn" id="3_lnu2h"]
+
+[sub_resource type="Gradient" id="Gradient_lnu2h"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lbhrr"]
+gradient = SubResource("Gradient_lnu2h")
+width = 10
+
+[node name="Game" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.5, 2.5)
+
+[node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../Camera2D")
+update_rotation = false
+update_scale = false
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DPad" parent="UI" instance=ExtResource("2_yqjtg")]
+anchors_preset = -1
+anchor_left = 0.0234375
+anchor_top = 0.6481481
+anchor_right = 0.2361111
+anchor_bottom = 1.0246913
+offset_left = 61.0
+offset_top = -3.9999695
+offset_right = -61.5
+offset_bottom = -126.0
+grow_horizontal = 1
+grow_vertical = 0
+scale = Vector2(2, 2)
+metadata/_edit_use_anchors_ = true
+
+[node name="ABButtons" parent="UI" instance=ExtResource("3_lnu2h")]
+anchors_preset = -1
+anchor_left = 0.8611111
+anchor_top = 0.7037037
+anchor_right = 0.9930556
+anchor_bottom = 0.9382716
+offset_left = 40.0
+offset_top = 40.0
+offset_right = -36.0
+offset_bottom = -36.0
+scale = Vector2(2, 2)
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(24, -40)
+scale = Vector2(1, 10)
+texture = SubResource("GradientTexture1D_lbhrr")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-112, -16)
+scale = Vector2(1, 10)
+texture = SubResource("GradientTexture1D_lbhrr")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(-112, 96)
+scale = Vector2(1, 10)
+texture = SubResource("GradientTexture1D_lbhrr")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+position = Vector2(112, 72)
+scale = Vector2(1, 10)
+texture = SubResource("GradientTexture1D_lbhrr")
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+position = Vector2(160, -24)
+scale = Vector2(1, 10)
+texture = SubResource("GradientTexture1D_lbhrr")
+
+[node name="Sprite2D6" type="Sprite2D" parent="."]
+position = Vector2(-208, -104)
+scale = Vector2(1, 10)
+texture = SubResource("GradientTexture1D_lbhrr")
