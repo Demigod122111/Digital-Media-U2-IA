@@ -11,16 +11,16 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1075.0
-offset_bottom = -571.0
+offset_right = -1088.0
+offset_bottom = -584.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(40, 40)
+pivot_offset = Vector2(32, 33)
 mouse_filter = 2
 script = ExtResource("1_dpwmc")
 
 [node name="B" type="TouchScreenButton" parent="."]
-position = Vector2(0, 45)
+position = Vector2(0, 32)
 scale = Vector2(0.152, 0.133)
 texture_normal = ExtResource("2_v13jh")
 texture_pressed = ExtResource("3_y3t8n")
@@ -28,7 +28,7 @@ passby_press = true
 action = "secondary"
 
 [node name="A" type="TouchScreenButton" parent="."]
-position = Vector2(45, 0)
+position = Vector2(32, 0)
 scale = Vector2(0.152, 0.133)
 texture_normal = ExtResource("4_o77eb")
 texture_pressed = ExtResource("5_818m8")

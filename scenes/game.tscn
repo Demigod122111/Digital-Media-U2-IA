@@ -1,8 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6r1u2idhgx5n"]
+[gd_scene load_steps=15 format=3 uid="uid://b6r1u2idhgx5n"]
 
+[ext_resource type="Script" uid="uid://cqhoev7ixn7ls" path="res://scripts/pick_up_manager.gd" id="1_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://cefx8583tdqnb" path="res://scenes/special/player.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://mjv1s5i2wlwf" path="res://scenes/special/npc.tscn" id="2_lbhrr"]
+[ext_resource type="Script" uid="uid://dsi6t7oscj5oa" path="res://scripts/bobbing.gd" id="2_vtaks"]
 [ext_resource type="PackedScene" uid="uid://4ihqc8itno2i" path="res://scenes/special/d_pad.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://01e5tvvm605k" path="res://scenes/special/ab_buttons.tscn" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://fo1jsb063i8a" path="res://scripts/resources/animations/AnimationSheet.gd" id="3_u5sy4"]
+[ext_resource type="Resource" uid="uid://b1kwsom6s318m" path="res://resources/animations/npcs/blond/Walk.tres" id="5_gee14"]
+[ext_resource type="Resource" uid="uid://cyiymjwnh5o3k" path="res://resources/animations/npcs/afro/Walk.tres" id="5_u5sy4"]
+[ext_resource type="Resource" uid="uid://c4o6t6gcvyrmi" path="res://resources/animations/npcs/redhead/Walk.tres" id="6_0tnpc"]
+[ext_resource type="Script" uid="uid://m6lyq5thi4qk" path="res://scripts/path_follow_2d.gd" id="7_u5sy4"]
 
 [sub_resource type="Gradient" id="Gradient_lnu2h"]
 
@@ -10,30 +18,76 @@
 gradient = SubResource("Gradient_lnu2h")
 width = 10
 
+[sub_resource type="Curve2D" id="Curve2D_gee14"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -168, -32, 0, 0, 0, 0, -40, -96, 0, 0, 0, 0, 112, -104, 0, 0, 0, 0, 192, -8, 0, 0, 0, 0, 184, 96, 0, 0, 0, 0, 64, 96, 0, 0, 0, 0, -24, 120, 0, 0, 0, 0, -136, 88, 0, 0, 0, 0, -168, 24, 0, 0, 0, 0, -168, -32)
+}
+point_count = 10
+
 [node name="Game" type="Node2D"]
+y_sort_enabled = true
+
+[node name="PickUpManager" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_kvpfn")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.5, 2.5)
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+[node name="CameraAnchor" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
 update_rotation = false
 update_scale = false
+
+[node name="PickedUpItem" type="RemoteTransform2D" parent="Player"]
+unique_name_in_owner = true
+position = Vector2(0, -32)
+remote_path = NodePath("../../Sprite2D (pickup)")
+update_rotation = false
+update_scale = false
+script = ExtResource("2_vtaks")
+
+[node name="NPC" parent="." instance=ExtResource("2_lbhrr")]
+y_sort_enabled = false
+position = Vector2(-168, -32)
+scale = Vector2(0.99999994, 0.99999994)
+anim_sheets = Dictionary[StringName, ExtResource("3_u5sy4")]({
+&"Idle": ExtResource("5_u5sy4"),
+&"Walk": ExtResource("5_u5sy4")
+})
+
+[node name="NPC2" parent="." instance=ExtResource("2_lbhrr")]
+y_sort_enabled = false
+position = Vector2(130.03485, -82.35817)
+scale = Vector2(0.99999994, 0.99999994)
+anim_sheets = Dictionary[StringName, ExtResource("3_u5sy4")]({
+&"Idle": ExtResource("5_gee14"),
+&"Walk": ExtResource("5_gee14")
+})
+
+[node name="NPC3" parent="." instance=ExtResource("2_lbhrr")]
+y_sort_enabled = false
+position = Vector2(52.54208, 99.12489)
+scale = Vector2(0.99999994, 0.99999994)
+anim_sheets = Dictionary[StringName, ExtResource("3_u5sy4")]({
+&"Idle": ExtResource("6_0tnpc"),
+&"Walk": ExtResource("6_0tnpc")
+})
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="DPad" parent="UI" instance=ExtResource("2_yqjtg")]
 anchors_preset = -1
-anchor_left = 0.0234375
-anchor_top = 0.6481481
-anchor_right = 0.2361111
-anchor_bottom = 1.0246913
-offset_left = 61.0
-offset_top = -3.9999695
-offset_right = -61.5
-offset_bottom = -126.0
+anchor_left = 0.034722224
+anchor_top = 0.654321
+anchor_right = 0.2013889
+anchor_bottom = 0.9506173
+offset_left = 48.0
+offset_top = 47.99997
+offset_right = -48.0
+offset_bottom = -48.0
 grow_horizontal = 1
 grow_vertical = 0
 scale = Vector2(2, 2)
@@ -41,43 +95,84 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ABButtons" parent="UI" instance=ExtResource("3_lnu2h")]
 anchors_preset = -1
-anchor_left = 0.8611111
-anchor_top = 0.7037037
-anchor_right = 0.9930556
-anchor_bottom = 0.9382716
-offset_left = 40.0
-offset_top = 40.0
-offset_right = -36.0
-offset_bottom = -36.0
+anchor_left = 0.8680556
+anchor_top = 0.67746913
+anchor_right = 0.9791667
+anchor_bottom = 0.8765432
+offset_left = 32.0
+offset_top = 33.0
+offset_right = -32.0
+offset_bottom = -31.5
 scale = Vector2(2, 2)
 metadata/_edit_use_anchors_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(24, -40)
+[node name="Sprite2D (pickup)" type="Sprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, -32)
 scale = Vector2(1, 10)
 texture = SubResource("GradientTexture1D_lbhrr")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
+y_sort_enabled = true
 position = Vector2(-112, -16)
 scale = Vector2(1, 10)
 texture = SubResource("GradientTexture1D_lbhrr")
 
 [node name="Sprite2D3" type="Sprite2D" parent="."]
+y_sort_enabled = true
 position = Vector2(-112, 96)
 scale = Vector2(1, 10)
 texture = SubResource("GradientTexture1D_lbhrr")
 
 [node name="Sprite2D4" type="Sprite2D" parent="."]
+y_sort_enabled = true
 position = Vector2(112, 72)
 scale = Vector2(1, 10)
 texture = SubResource("GradientTexture1D_lbhrr")
 
 [node name="Sprite2D5" type="Sprite2D" parent="."]
+y_sort_enabled = true
 position = Vector2(160, -24)
 scale = Vector2(1, 10)
 texture = SubResource("GradientTexture1D_lbhrr")
 
 [node name="Sprite2D6" type="Sprite2D" parent="."]
+y_sort_enabled = true
 position = Vector2(-208, -104)
 scale = Vector2(1, 10)
 texture = SubResource("GradientTexture1D_lbhrr")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_gee14")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-168, -32)
+rotation = -0.4636476
+script = ExtResource("7_u5sy4")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path2D/PathFollow2D"]
+remote_path = NodePath("../../../NPC")
+update_rotation = false
+update_scale = false
+
+[node name="PathFollow2D2" type="PathFollow2D" parent="Path2D"]
+position = Vector2(130.03485, -82.35817)
+rotation = 0.8760581
+progress = 323.3471
+script = ExtResource("7_u5sy4")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path2D/PathFollow2D2"]
+remote_path = NodePath("../../../NPC2")
+update_rotation = false
+update_scale = false
+
+[node name="PathFollow2D3" type="PathFollow2D" parent="Path2D"]
+position = Vector2(52.54208, 99.12489)
+rotation = 2.8753407
+progress = 656.4927
+script = ExtResource("7_u5sy4")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path2D/PathFollow2D3"]
+remote_path = NodePath("../../../NPC3")
+update_rotation = false
+update_scale = false

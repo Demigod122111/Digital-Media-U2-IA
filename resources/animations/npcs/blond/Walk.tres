@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AnimationSheet" load_steps=3 format=3 uid="uid://b1kwsom6s318m"]
+
+[ext_resource type="Script" uid="uid://fo1jsb063i8a" path="res://scripts/resources/animations/AnimationSheet.gd" id="1_y1ol5"]
+[ext_resource type="Texture2D" uid="uid://b0l3j317itxs5" path="res://sprites/npcs/blond/walk.png" id="2_y1ol5"]
+
+[resource]
+script = ExtResource("1_y1ol5")
+texture = ExtResource("2_y1ol5")
+hframes = 4
+vframes = 3
+metadata/_custom_type_script = "uid://fo1jsb063i8a"

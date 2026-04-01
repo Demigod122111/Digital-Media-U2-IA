@@ -15,16 +15,16 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1030.0
-offset_bottom = -526.0
+offset_right = -1056.0
+offset_bottom = -552.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(61, 60)
+pivot_offset = Vector2(48, 48)
 mouse_filter = 2
 script = ExtResource("1_he8dy")
 
 [node name="Left" type="TouchScreenButton" parent="."]
-position = Vector2(0, 45)
+position = Vector2(0, 32)
 scale = Vector2(0.152, 0.133)
 texture_normal = ExtResource("2_yrjmp")
 texture_pressed = ExtResource("3_iyh7f")
@@ -32,7 +32,7 @@ passby_press = true
 action = "left"
 
 [node name="Down" type="TouchScreenButton" parent="."]
-position = Vector2(45, 90)
+position = Vector2(32, 64)
 scale = Vector2(0.152, 0.133)
 texture_normal = ExtResource("4_26ces")
 texture_pressed = ExtResource("5_1nmif")
@@ -40,7 +40,7 @@ passby_press = true
 action = "down"
 
 [node name="Right" type="TouchScreenButton" parent="."]
-position = Vector2(90, 45)
+position = Vector2(64, 32)
 scale = Vector2(0.152, 0.133)
 texture_normal = ExtResource("6_l0to3")
 texture_pressed = ExtResource("7_wt08n")
@@ -48,7 +48,7 @@ passby_press = true
 action = "right"
 
 [node name="Up" type="TouchScreenButton" parent="."]
-position = Vector2(45, 0)
+position = Vector2(32, 0)
 scale = Vector2(0.152, 0.133)
 texture_normal = ExtResource("8_kehcj")
 texture_pressed = ExtResource("9_8a4cx")
