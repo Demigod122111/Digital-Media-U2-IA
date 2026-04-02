@@ -4,6 +4,9 @@ extends CharacterBody2D
 @export var anim_sheets: Dictionary[StringName, AnimationSheet]
 @export var current_anim_state := &"Idle"
 
+@export var Path: Path2D
+@export var PathFollow: PathFollow2D
+
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 @onready var sprite_2d: Sprite2D = $Sprite2D
@@ -11,10 +14,14 @@ extends CharacterBody2D
 var previous_state := &""
 
 var input_direction := Vector2.ZERO
+var last_position := Vector2.ZERO
 
 var speed := 100
 var sprint_multiplier := 1.35
 var sprinting := false
+
+func _ready() -> void:
+	last_position = PathFollow.global_position
 
 func update_texture() -> void:
 	sprite_2d.hframes = anim_sheets[current_anim_state].hframes
@@ -24,10 +31,9 @@ func update_texture() -> void:
 		sprite_2d.frame = 0
 
 func _physics_process(_delta: float):
-	input_direction = Vector2(
-		randi_range(-1, 1),
-		randi_range(-1, 1)
-	).normalized()
+	var current_position = PathFollow.global_position
+	input_direction = (current_position - last_position).normalized()
+	last_position = current_position
 	
 	sprinting = randi_range(0, 1) != 0
 	

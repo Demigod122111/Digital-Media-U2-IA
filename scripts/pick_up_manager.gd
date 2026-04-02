@@ -6,6 +6,11 @@ var drop_behaviour: Array[Callable] = []
 
 @onready var picked_up_item: Bobbing = %PickedUpItem
 
+func GetCurrentBehaviour() -> Callable:
+	if picked_up_item.remote_path.is_empty():
+		return GetCurrentPickupBehaviour()
+	return GetCurrentDropBehaviour()
+
 func GetCurrentPickupBehaviour() -> Callable:
 	if pickup_behaviour.size() > 0:
 		return pickup_behaviour[0]
@@ -42,15 +47,11 @@ func RemoveDropBehaviour(callable: Callable):
 	if idx >= 0:
 		drop_behaviour.remove_at(idx)
 
-func DefaultPickupBehaviour(item: Node2D):
-	if picked_up_item.remote_path.is_empty():
-		picked_up_item.remote_path = item.get_path()
-	else:
-		return false
-	return true
+func DefaultPickupBehaviour():
+	print("Pickup!")
 
-func DefaultDropBehaviour(item: Node2D):
-	if picked_up_item.remote_path == item.get_path():
+func DefaultDropBehaviour():
+	if not picked_up_item.remote_path.is_empty():
 		picked_up_item.remote_path = ""
 	else:
 		return false

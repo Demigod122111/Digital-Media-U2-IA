@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b6r1u2idhgx5n"]
+[gd_scene load_steps=33 format=3 uid="uid://b6r1u2idhgx5n"]
 
 [ext_resource type="Script" uid="uid://cqhoev7ixn7ls" path="res://scripts/pick_up_manager.gd" id="1_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://cefx8583tdqnb" path="res://scenes/special/player.tscn" id="1_uwrxv"]
@@ -11,6 +11,10 @@
 [ext_resource type="Resource" uid="uid://cyiymjwnh5o3k" path="res://resources/animations/npcs/afro/Walk.tres" id="5_u5sy4"]
 [ext_resource type="Resource" uid="uid://c4o6t6gcvyrmi" path="res://resources/animations/npcs/redhead/Walk.tres" id="6_0tnpc"]
 [ext_resource type="Script" uid="uid://m6lyq5thi4qk" path="res://scripts/path_follow_2d.gd" id="7_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://07nl0iiewkd8" path="res://scenes/special/pickup_item.tscn" id="12_dinhu"]
+[ext_resource type="Texture2D" uid="uid://de44wuvyu5tl1" path="res://sprites/map/pixil-layer-Layer 1.png" id="13_kvuet"]
+[ext_resource type="Texture2D" uid="uid://sml3xf6ys2n" path="res://sprites/map/pixil-layer-1.png" id="14_trtic"]
+[ext_resource type="Texture2D" uid="uid://dl6tuvgejv4wo" path="res://sprites/map/pixil-frame-0.png" id="15_ir15t"]
 
 [sub_resource type="Gradient" id="Gradient_lnu2h"]
 
@@ -20,9 +24,51 @@ width = 10
 
 [sub_resource type="Curve2D" id="Curve2D_gee14"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -168, -32, 0, 0, 0, 0, -40, -96, 0, 0, 0, 0, 112, -104, 0, 0, 0, 0, 192, -8, 0, 0, 0, 0, 184, 96, 0, 0, 0, 0, 64, 96, 0, 0, 0, 0, -24, 120, 0, 0, 0, 0, -136, 88, 0, 0, 0, 0, -168, 24, 0, 0, 0, 0, -168, -32)
+"points": PackedVector2Array(0, 0, 0, 0, 57, -320, 0, 0, 0, 0, 206, -319, 0, 0, 0, 0, 495, -324, 0, 0, 0, 0, 484, -297, 0, 0, 0, 0, 260, -303, 0, 0, 0, 0, 28, -303, 0, 0, 0, 0, 57, -320)
 }
-point_count = 10
+point_count = 7
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trtic"]
+size = Vector2(193, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ir15t"]
+size = Vector2(9, 111)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ca42v"]
+size = Vector2(190, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rysoc"]
+size = Vector2(4, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ssvqc"]
+size = Vector2(62, 41)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_264po"]
+size = Vector2(26, 57)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1kice"]
+size = Vector2(26, 29.5)
+
+[sub_resource type="Gradient" id="Gradient_trtic"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ir15t"]
+gradient = SubResource("Gradient_trtic")
+width = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5newe"]
+size = Vector2(513, 59)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37s47"]
+size = Vector2(47, 67)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bt5mj"]
+size = Vector2(16.5, 132.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e1j6l"]
+size = Vector2(516.5, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pl11u"]
+size = Vector2(72, 18)
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -32,9 +78,13 @@ unique_name_in_owner = true
 script = ExtResource("1_kvpfn")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-686, -223)
 zoom = Vector2(2.5, 2.5)
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+position = Vector2(-686, -223)
+collision_layer = 3
+collision_mask = 3
 
 [node name="CameraAnchor" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
@@ -44,37 +94,42 @@ update_scale = false
 [node name="PickedUpItem" type="RemoteTransform2D" parent="Player"]
 unique_name_in_owner = true
 position = Vector2(0, -32)
-remote_path = NodePath("../../Sprite2D (pickup)")
 update_rotation = false
 update_scale = false
 script = ExtResource("2_vtaks")
 
-[node name="NPC" parent="." instance=ExtResource("2_lbhrr")]
+[node name="NPC" parent="." node_paths=PackedStringArray("Path", "PathFollow") instance=ExtResource("2_lbhrr")]
 y_sort_enabled = false
-position = Vector2(-168, -32)
+position = Vector2(57, -320)
 scale = Vector2(0.99999994, 0.99999994)
 anim_sheets = Dictionary[StringName, ExtResource("3_u5sy4")]({
 &"Idle": ExtResource("5_u5sy4"),
 &"Walk": ExtResource("5_u5sy4")
 })
+Path = NodePath("../Path2D")
+PathFollow = NodePath("../Path2D/PathFollow2D")
 
-[node name="NPC2" parent="." instance=ExtResource("2_lbhrr")]
+[node name="NPC2" parent="." node_paths=PackedStringArray("Path", "PathFollow") instance=ExtResource("2_lbhrr")]
 y_sort_enabled = false
-position = Vector2(130.03485, -82.35817)
+position = Vector2(380.3185, -322.0159)
 scale = Vector2(0.99999994, 0.99999994)
 anim_sheets = Dictionary[StringName, ExtResource("3_u5sy4")]({
 &"Idle": ExtResource("5_gee14"),
 &"Walk": ExtResource("5_gee14")
 })
+Path = NodePath("../Path2D")
+PathFollow = NodePath("../Path2D/PathFollow2D2")
 
-[node name="NPC3" parent="." instance=ExtResource("2_lbhrr")]
+[node name="NPC3" parent="." node_paths=PackedStringArray("Path", "PathFollow") instance=ExtResource("2_lbhrr")]
 y_sort_enabled = false
-position = Vector2(52.54208, 99.12489)
+position = Vector2(294.77206, -302.0686)
 scale = Vector2(0.99999994, 0.99999994)
 anim_sheets = Dictionary[StringName, ExtResource("3_u5sy4")]({
 &"Idle": ExtResource("6_0tnpc"),
 &"Walk": ExtResource("6_0tnpc")
 })
+Path = NodePath("../Path2D")
+PathFollow = NodePath("../Path2D/PathFollow2D3")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -105,12 +160,6 @@ offset_right = -32.0
 offset_bottom = -31.5
 scale = Vector2(2, 2)
 metadata/_edit_use_anchors_ = true
-
-[node name="Sprite2D (pickup)" type="Sprite2D" parent="."]
-y_sort_enabled = true
-position = Vector2(0, -32)
-scale = Vector2(1, 10)
-texture = SubResource("GradientTexture1D_lbhrr")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 y_sort_enabled = true
@@ -146,8 +195,8 @@ texture = SubResource("GradientTexture1D_lbhrr")
 curve = SubResource("Curve2D_gee14")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2(-168, -32)
-rotation = -0.4636476
+position = Vector2(57, -320)
+rotation = 0.0067113084
 script = ExtResource("7_u5sy4")
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path2D/PathFollow2D"]
@@ -156,8 +205,8 @@ update_rotation = false
 update_scale = false
 
 [node name="PathFollow2D2" type="PathFollow2D" parent="Path2D"]
-position = Vector2(130.03485, -82.35817)
-rotation = 0.8760581
+position = Vector2(380.3185, -322.0159)
+rotation = -0.017299313
 progress = 323.3471
 script = ExtResource("7_u5sy4")
 
@@ -167,8 +216,8 @@ update_rotation = false
 update_scale = false
 
 [node name="PathFollow2D3" type="PathFollow2D" parent="Path2D"]
-position = Vector2(52.54208, 99.12489)
-rotation = 2.8753407
+position = Vector2(294.77206, -302.0686)
+rotation = -3.1148133
 progress = 656.4927
 script = ExtResource("7_u5sy4")
 
@@ -176,3 +225,98 @@ script = ExtResource("7_u5sy4")
 remote_path = NodePath("../../../NPC3")
 update_rotation = false
 update_scale = false
+
+[node name="PickupItem" parent="." instance=ExtResource("12_dinhu")]
+position = Vector2(0, -32)
+
+[node name="Bedroom" type="Sprite2D" parent="."]
+position = Vector2(-608, -501)
+texture = ExtResource("13_kvuet")
+offset = Vector2(0, 245)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Bedroom"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bedroom/StaticBody2D"]
+position = Vector2(-1.5, 225)
+shape = SubResource("RectangleShape2D_trtic")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Bedroom/StaticBody2D"]
+position = Vector2(-93.5, 268.5)
+shape = SubResource("RectangleShape2D_ir15t")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Bedroom/StaticBody2D"]
+position = Vector2(-1, 322.5)
+shape = SubResource("RectangleShape2D_ca42v")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Bedroom/StaticBody2D"]
+position = Vector2(96, 306.5)
+shape = SubResource("RectangleShape2D_rysoc")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Bedroom/StaticBody2D"]
+position = Vector2(95, 241)
+shape = SubResource("RectangleShape2D_rysoc")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Bedroom/StaticBody2D"]
+position = Vector2(47, 232.5)
+shape = SubResource("RectangleShape2D_ssvqc")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Bedroom/StaticBody2D"]
+position = Vector2(-78, 240.5)
+shape = SubResource("RectangleShape2D_264po")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Bedroom/StaticBody2D"]
+position = Vector2(-78, 310.25)
+shape = SubResource("RectangleShape2D_1kice")
+
+[node name="Bedroom Top" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(-607, -172)
+texture = ExtResource("14_trtic")
+offset = Vector2(-1, -84)
+
+[node name="Sprite2D7" type="Sprite2D" parent="Bedroom Top"]
+position = Vector2(156, -77)
+scale = Vector2(37.999973, 72)
+texture = SubResource("GradientTexture1D_ir15t")
+
+[node name="PixilFrame0" type="Sprite2D" parent="."]
+position = Vector2(255, -386)
+texture = ExtResource("15_ir15t")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="PixilFrame0"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+position = Vector2(-2.5, 19.5)
+shape = SubResource("RectangleShape2D_5newe")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+position = Vector2(139.5, 23.5)
+shape = SubResource("RectangleShape2D_37s47")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+position = Vector2(13, 24)
+shape = SubResource("RectangleShape2D_37s47")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+position = Vector2(-239, 24)
+shape = SubResource("RectangleShape2D_37s47")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+position = Vector2(-254.25, 56.75)
+shape = SubResource("RectangleShape2D_bt5mj")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+position = Vector2(-4.25, 117)
+shape = SubResource("RectangleShape2D_e1j6l")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+position = Vector2(200, 114)
+shape = SubResource("RectangleShape2D_pl11u")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+position = Vector2(38, 114)
+shape = SubResource("RectangleShape2D_pl11u")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+position = Vector2(-109, 114)
+shape = SubResource("RectangleShape2D_pl11u")

@@ -8,6 +8,8 @@ extends CharacterBody2D
 @onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
+@onready var pick_up_manager: PickUpManager = %PickUpManager
+
 var previous_state := &""
 
 var input_direction := Vector2.ZERO
@@ -26,7 +28,7 @@ func update_texture() -> void:
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("primary"):
 		Input.action_release("primary")
-		DialogueManager.call_deferred("show_example_dialogue_balloon", load("res://dialogues/test.dialogue"), "START")
+		pick_up_manager.GetCurrentBehaviour().call_deferred()
 
 func _physics_process(_delta: float):
 	input_direction = Vector2(
