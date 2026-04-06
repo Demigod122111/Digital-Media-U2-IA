@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cp26u7s08l0fe"]
+
+[ext_resource type="Script" uid="uid://cs6oiwvef3axw" path="res://scripts/fade.gd" id="1_3nlfs"]
+[ext_resource type="Shader" uid="uid://cy16ub3yxx1pv" path="res://shaders/fade.gdshader" id="1_vucr7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3nlfs"]
+shader = ExtResource("1_vucr7")
+shader_parameter/progress = 0.0
+shader_parameter/noAlpha = false
+shader_parameter/lerpAlpha = true
+shader_parameter/customColor = Color(0, 0, 0, 1)
+shader_parameter/useCustomColor = true
+
+[node name="Fade" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_3nlfs")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+material = SubResource("ShaderMaterial_3nlfs")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

@@ -2,7 +2,7 @@
 class_name Pickup
 extends Sprite2D
 
-@onready var pick_up_manager: PickUpManager = %PickUpManager
+@onready var behaviour_manager: BehaviourManager = %BehaviourManager
 
 func _process(_delta: float) -> void:
 	if self.texture == null:
@@ -17,10 +17,14 @@ func _process(_delta: float) -> void:
 
 
 func _on_area_2d_body_entered(_body: Node2D) -> void:
-	pick_up_manager.AddPickupBehaviour(PickUpBehaviour)
+	behaviour_manager.AddBehaviour(BehaviourManager.BehaviourType.PICKUP, PickUpBehaviour)
 
 func _on_area_2d_body_exited(_body: Node2D) -> void:
-	pick_up_manager.RemovePickupBehaviour(PickUpBehaviour)
+	behaviour_manager.RemoveBehaviour(PickUpBehaviour)
 
 func PickUpBehaviour():
-	pick_up_manager.picked_up_item.remote_path = self.get_path()
+	behaviour_manager.picked_up_item.remote_path = self.get_path()
+	behaviour_manager.AddBehaviour(BehaviourManager.BehaviourType.DROP, behaviour_manager.DefaultDropBehaviour)
+
+func GetName():
+	return self.name

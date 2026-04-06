@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://0kr3eansopjc"
+path="res://.godot/imported/sherian.dialogue-85993d6f257ee1d86bba272093278101.tres"
+
+[deps]
+
+source_file="res://dialogues/sherian.dialogue"
+dest_files=["res://.godot/imported/sherian.dialogue-85993d6f257ee1d86bba272093278101.tres"]
+
+[params]
+
+defaults=true

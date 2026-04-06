@@ -239,6 +239,9 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
+motion_mode = 1
+platform_on_leave = 2
+platform_floor_layers = 0
 script = ExtResource("1_ow8ye")
 anim_sheets = Dictionary[StringName, ExtResource("2_q5lsa")]({
 &"Idle": ExtResource("2_2w2qy"),
@@ -247,12 +250,12 @@ anim_sheets = Dictionary[StringName, ExtResource("2_q5lsa")]({
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
-position = Vector2(0, 13)
+position = Vector2(0, 6)
 texture = ExtResource("3_q5lsa")
-offset = Vector2(0, -13)
+offset = Vector2(0, -6)
 hframes = 8
 vframes = 3
-frame = 10
+frame = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8.5)

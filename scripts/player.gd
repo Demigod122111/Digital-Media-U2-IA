@@ -8,7 +8,7 @@ extends CharacterBody2D
 @onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
-@onready var pick_up_manager: PickUpManager = %PickUpManager
+@onready var behaviour_manager: BehaviourManager = %BehaviourManager
 
 var previous_state := &""
 
@@ -18,6 +18,8 @@ var speed := 100
 var sprint_multiplier := 1.35
 var sprinting := false
 
+var can_move := true
+
 func update_texture() -> void:
 	sprite_2d.hframes = anim_sheets[current_anim_state].hframes
 	sprite_2d.vframes = anim_sheets[current_anim_state].vframes
@@ -26,15 +28,17 @@ func update_texture() -> void:
 		sprite_2d.frame = 0
 
 func _unhandled_input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("primary"):
-		Input.action_release("primary")
-		pick_up_manager.GetCurrentBehaviour().call_deferred()
+	if _event.is_action_released("primary"):
+		behaviour_manager.CallCurrentBehaviour.call_deferred()
 
 func _physics_process(_delta: float):
 	input_direction = Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		Input.get_action_strength("down") - Input.get_action_strength("up")
 	).normalized()
+	
+	if not can_move:
+		input_direction = Vector2.ZERO
 	
 	sprinting = Input.get_action_strength("secondary") != 0
 	
@@ -44,19 +48,23 @@ func _physics_process(_delta: float):
 		
 	velocity = input_direction * speed * multiplier
 	
-	if velocity.x < 0:
-		sprite_2d.flip_h = false
-	elif velocity.x > 0:
-		sprite_2d.flip_h = true
-	
 	move_and_slide()
 	pick_new_state()
 
 func update_anim_blend(moveDirection: Vector2):
 	if moveDirection != Vector2.ZERO:
-		if moveDirection.x != 0:
+		if abs(moveDirection.x) == abs(moveDirection.y):
 			moveDirection.y = 0
-			
+		elif abs(moveDirection.x) < abs(moveDirection.y):
+			moveDirection.x = 0
+		else:
+			moveDirection.y = 0
+		
+		if moveDirection.x < 0:
+			sprite_2d.flip_h = false
+		elif moveDirection.x > 0:
+			sprite_2d.flip_h = true
+		
 		animation_tree.set("parameters/Idle/blend_position", moveDirection)
 		animation_tree.set("parameters/Walk/blend_position", moveDirection)
 		#animation_tree.set("parameters/Run/blend_position", moveDirection)

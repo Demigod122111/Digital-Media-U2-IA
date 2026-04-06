@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://8ku8ojegdsbv"
+path="res://.godot/imported/kyle.dialogue-1086100bb6894ac7820aaa7757a0dfb7.tres"
+
+[deps]
+
+source_file="res://dialogues/kyle.dialogue"
+dest_files=["res://.godot/imported/kyle.dialogue-1086100bb6894ac7820aaa7757a0dfb7.tres"]
+
+[params]
+
+defaults=true

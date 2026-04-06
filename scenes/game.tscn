@@ -1,32 +1,39 @@
-[gd_scene load_steps=33 format=3 uid="uid://b6r1u2idhgx5n"]
+[gd_scene load_steps=43 format=3 uid="uid://b6r1u2idhgx5n"]
 
-[ext_resource type="Script" uid="uid://cqhoev7ixn7ls" path="res://scripts/pick_up_manager.gd" id="1_kvpfn"]
+[ext_resource type="Script" uid="uid://cqhoev7ixn7ls" path="res://scripts/behaviour_manager.gd" id="1_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://cefx8583tdqnb" path="res://scenes/special/player.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://mjv1s5i2wlwf" path="res://scenes/special/npc.tscn" id="2_lbhrr"]
 [ext_resource type="Script" uid="uid://dsi6t7oscj5oa" path="res://scripts/bobbing.gd" id="2_vtaks"]
 [ext_resource type="PackedScene" uid="uid://4ihqc8itno2i" path="res://scenes/special/d_pad.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://01e5tvvm605k" path="res://scenes/special/ab_buttons.tscn" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://fo1jsb063i8a" path="res://scripts/resources/animations/AnimationSheet.gd" id="3_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://cp26u7s08l0fe" path="res://scenes/special/fade.tscn" id="4_dinhu"]
 [ext_resource type="Resource" uid="uid://b1kwsom6s318m" path="res://resources/animations/npcs/blond/Walk.tres" id="5_gee14"]
-[ext_resource type="Resource" uid="uid://cyiymjwnh5o3k" path="res://resources/animations/npcs/afro/Walk.tres" id="5_u5sy4"]
-[ext_resource type="Resource" uid="uid://c4o6t6gcvyrmi" path="res://resources/animations/npcs/redhead/Walk.tres" id="6_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://dia303l1uumqo" path="res://scenes/special/travel.tscn" id="6_vtaks"]
+[ext_resource type="Script" uid="uid://ctd32b6l142rd" path="res://scripts/resources/travel_location.gd" id="7_kvpfn"]
 [ext_resource type="Script" uid="uid://m6lyq5thi4qk" path="res://scripts/path_follow_2d.gd" id="7_u5sy4"]
+[ext_resource type="Resource" uid="uid://8ku8ojegdsbv" path="res://dialogues/kyle.dialogue" id="8_rysoc"]
+[ext_resource type="Texture2D" uid="uid://b6dkfhovhgmk5" path="res://icon.svg" id="9_1kice"]
+[ext_resource type="Script" uid="uid://bwuvs37l0xxsl" path="res://scripts/pause.gd" id="9_264po"]
+[ext_resource type="Script" uid="uid://c3fjgxduapjwb" path="res://scripts/travel_spot.gd" id="11_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://07nl0iiewkd8" path="res://scenes/special/pickup_item.tscn" id="12_dinhu"]
 [ext_resource type="Texture2D" uid="uid://de44wuvyu5tl1" path="res://sprites/map/pixil-layer-Layer 1.png" id="13_kvuet"]
 [ext_resource type="Texture2D" uid="uid://sml3xf6ys2n" path="res://sprites/map/pixil-layer-1.png" id="14_trtic"]
 [ext_resource type="Texture2D" uid="uid://dl6tuvgejv4wo" path="res://sprites/map/pixil-frame-0.png" id="15_ir15t"]
 
-[sub_resource type="Gradient" id="Gradient_lnu2h"]
+[sub_resource type="Resource" id="Resource_dinhu"]
+script = ExtResource("7_kvpfn")
+Name = &"Home"
+Point = Vector2(-532, -234)
+Facing = Vector2(-1, 0)
+metadata/_custom_type_script = "uid://ctd32b6l142rd"
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_lbhrr"]
-gradient = SubResource("Gradient_lnu2h")
-width = 10
-
-[sub_resource type="Curve2D" id="Curve2D_gee14"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 57, -320, 0, 0, 0, 0, 206, -319, 0, 0, 0, 0, 495, -324, 0, 0, 0, 0, 484, -297, 0, 0, 0, 0, 260, -303, 0, 0, 0, 0, 28, -303, 0, 0, 0, 0, 57, -320)
-}
-point_count = 7
+[sub_resource type="Resource" id="Resource_vtaks"]
+script = ExtResource("7_kvpfn")
+Name = &"School"
+Point = Vector2(451, -343)
+Facing = Vector2(0, 1)
+metadata/_custom_type_script = "uid://ctd32b6l142rd"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trtic"]
 size = Vector2(193, 24)
@@ -38,7 +45,7 @@ size = Vector2(9, 111)
 size = Vector2(190, 3)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rysoc"]
-size = Vector2(4, 35)
+size = Vector2(12, 35)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssvqc"]
 size = Vector2(62, 41)
@@ -56,7 +63,7 @@ gradient = SubResource("Gradient_trtic")
 width = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5newe"]
-size = Vector2(513, 59)
+size = Vector2(436, 59)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37s47"]
 size = Vector2(47, 67)
@@ -70,10 +77,31 @@ size = Vector2(516.5, 12)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pl11u"]
 size = Vector2(72, 18)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtaks"]
+size = Vector2(85, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kvpfn"]
+size = Vector2(41, 37)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhx41"]
+size = Vector2(66.5, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dinhu"]
+size = Vector2(13, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kvuet"]
+size = Vector2(36, 16)
+
+[sub_resource type="Curve2D" id="Curve2D_kvuet"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 15.873016, 0.5250244, 0, 0, 0, 0, 30.873016, -13.474976, 0, 0, 0, 0, 50.873016, -18.474976, 0, 0, 0, 0, 64.87302, -18.474976, 0, 0, 0, 0, 83.87302, -18.474976, 0, 0, 0, 0, 91.87302, -10.474976, 0, 0, 0, 0, 100.87302, -1.4749756, 0, 0, 0, 0, 95.87302, 11.525024, 0, 0, 0, 0, 86.87302, 17.525024, 0, 0, 0, 0, 72.87302, 25.525024, 0, 0, 0, 0, 53.873016, 21.525024, 0, 0, 0, 0, 45.873016, 17.525024, 0, 0, 0, 0, 44.873016, 9.525024, 0, 0, 0, 0, 57.873016, 6.5250244, 0, 0, 0, 0, 61.873016, 12.525024, 0, 0, 0, 0, 71.87302, 14.525024, 0, 0, 0, 0, 78.87302, 10.525024, 0, 0, 0, 0, 78.87302, 3.5250244, 0, 0, 0, 0, 75.87302, -0.4749756, 0, 0, 0, 0, 64.87302, -3.4749756, 0, 0, 0, 0, 54.873016, -3.4749756, 0, 0, 0, 0, 45.873016, -0.4749756, 0, 0, 0, 0, 37.873016, 5.5250244, 0, 0, 0, 0, 35.873016, 14.525024, 0, 0, 0, 0, 33.873016, 19.525024, 0, 0, 0, 0, 25.873016, 21.525024, 0, 0, 0, 0, 14.873016, 19.525024, 0, 0, 0, 0, 8.873016, 10.525024, 0, 0, 0, 0, 8.873016, 3.5250244)
+}
+point_count = 29
+
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 
-[node name="PickUpManager" type="Node2D" parent="."]
+[node name="BehaviourManager" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_kvpfn")
 
@@ -82,9 +110,10 @@ position = Vector2(-686, -223)
 zoom = Vector2(2.5, 2.5)
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+unique_name_in_owner = true
 position = Vector2(-686, -223)
-collision_layer = 3
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
 
 [node name="CameraAnchor" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
@@ -98,38 +127,8 @@ update_rotation = false
 update_scale = false
 script = ExtResource("2_vtaks")
 
-[node name="NPC" parent="." node_paths=PackedStringArray("Path", "PathFollow") instance=ExtResource("2_lbhrr")]
-y_sort_enabled = false
-position = Vector2(57, -320)
-scale = Vector2(0.99999994, 0.99999994)
-anim_sheets = Dictionary[StringName, ExtResource("3_u5sy4")]({
-&"Idle": ExtResource("5_u5sy4"),
-&"Walk": ExtResource("5_u5sy4")
-})
-Path = NodePath("../Path2D")
-PathFollow = NodePath("../Path2D/PathFollow2D")
-
-[node name="NPC2" parent="." node_paths=PackedStringArray("Path", "PathFollow") instance=ExtResource("2_lbhrr")]
-y_sort_enabled = false
-position = Vector2(380.3185, -322.0159)
-scale = Vector2(0.99999994, 0.99999994)
-anim_sheets = Dictionary[StringName, ExtResource("3_u5sy4")]({
-&"Idle": ExtResource("5_gee14"),
-&"Walk": ExtResource("5_gee14")
-})
-Path = NodePath("../Path2D")
-PathFollow = NodePath("../Path2D/PathFollow2D2")
-
-[node name="NPC3" parent="." node_paths=PackedStringArray("Path", "PathFollow") instance=ExtResource("2_lbhrr")]
-y_sort_enabled = false
-position = Vector2(294.77206, -302.0686)
-scale = Vector2(0.99999994, 0.99999994)
-anim_sheets = Dictionary[StringName, ExtResource("3_u5sy4")]({
-&"Idle": ExtResource("6_0tnpc"),
-&"Walk": ExtResource("6_0tnpc")
-})
-Path = NodePath("../Path2D")
-PathFollow = NodePath("../Path2D/PathFollow2D3")
+[node name="Fade" parent="." instance=ExtResource("4_dinhu")]
+unique_name_in_owner = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -161,73 +160,80 @@ offset_bottom = -31.5
 scale = Vector2(2, 2)
 metadata/_edit_use_anchors_ = true
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-y_sort_enabled = true
-position = Vector2(-112, -16)
-scale = Vector2(1, 10)
-texture = SubResource("GradientTexture1D_lbhrr")
+[node name="Travel" parent="UI" node_paths=PackedStringArray("PlayerBody") instance=ExtResource("6_vtaks")]
+unique_name_in_owner = true
+PlayerBody = NodePath("../../Player")
+Locations = Array[ExtResource("7_kvpfn")]([SubResource("Resource_dinhu"), SubResource("Resource_vtaks")])
 
-[node name="Sprite2D3" type="Sprite2D" parent="."]
-y_sort_enabled = true
-position = Vector2(-112, 96)
-scale = Vector2(1, 10)
-texture = SubResource("GradientTexture1D_lbhrr")
+[node name="PauseButton" type="TouchScreenButton" parent="UI"]
+position = Vector2(1063, 12)
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("9_1kice")
+texture_pressed = ExtResource("9_1kice")
+action = "ui_cancel"
 
-[node name="Sprite2D4" type="Sprite2D" parent="."]
-y_sort_enabled = true
-position = Vector2(112, 72)
-scale = Vector2(1, 10)
-texture = SubResource("GradientTexture1D_lbhrr")
+[node name="PauseManager" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+layer = 11
+script = ExtResource("9_264po")
 
-[node name="Sprite2D5" type="Sprite2D" parent="."]
-y_sort_enabled = true
-position = Vector2(160, -24)
-scale = Vector2(1, 10)
-texture = SubResource("GradientTexture1D_lbhrr")
+[node name="PanelContainer" type="PanelContainer" parent="PauseManager"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Sprite2D6" type="Sprite2D" parent="."]
-y_sort_enabled = true
-position = Vector2(-208, -104)
-scale = Vector2(1, 10)
-texture = SubResource("GradientTexture1D_lbhrr")
+[node name="MarginContainer" type="MarginContainer" parent="PauseManager/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
 
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource("Curve2D_gee14")
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseManager/PanelContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
 
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2(57, -320)
-rotation = 0.0067113084
-script = ExtResource("7_u5sy4")
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseManager/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 28
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path2D/PathFollow2D"]
-remote_path = NodePath("../../../NPC")
-update_rotation = false
-update_scale = false
+[node name="Spacer" type="Control" parent="PauseManager/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
 
-[node name="PathFollow2D2" type="PathFollow2D" parent="Path2D"]
-position = Vector2(380.3185, -322.0159)
-rotation = -0.017299313
-progress = 323.3471
-script = ExtResource("7_u5sy4")
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseManager/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 72
+bbcode_enabled = true
+text = "[wave]Paused[/wave]"
+fit_content = true
+autowrap_mode = 0
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path2D/PathFollow2D2"]
-remote_path = NodePath("../../../NPC2")
-update_rotation = false
-update_scale = false
+[node name="Spacer2" type="Control" parent="PauseManager/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
 
-[node name="PathFollow2D3" type="PathFollow2D" parent="Path2D"]
-position = Vector2(294.77206, -302.0686)
-rotation = -3.1148133
-progress = 656.4927
-script = ExtResource("7_u5sy4")
+[node name="Resume" type="Button" parent="PauseManager/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+focus_mode = 0
+text = "Resume"
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path2D/PathFollow2D3"]
-remote_path = NodePath("../../../NPC3")
-update_rotation = false
-update_scale = false
+[node name="MainMenu" type="Button" parent="PauseManager/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+focus_mode = 0
+text = "Main Menu"
 
-[node name="PickupItem" parent="." instance=ExtResource("12_dinhu")]
-position = Vector2(0, -32)
+[node name="Quit" type="Button" parent="PauseManager/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+focus_mode = 0
+text = "Quit"
 
 [node name="Bedroom" type="Sprite2D" parent="."]
 position = Vector2(-608, -501)
@@ -249,11 +255,15 @@ position = Vector2(-1, 322.5)
 shape = SubResource("RectangleShape2D_ca42v")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Bedroom/StaticBody2D"]
-position = Vector2(96, 306.5)
+position = Vector2(99, 305)
 shape = SubResource("RectangleShape2D_rysoc")
 
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="Bedroom/StaticBody2D"]
-position = Vector2(95, 241)
+position = Vector2(99, 241)
+shape = SubResource("RectangleShape2D_rysoc")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="Bedroom/StaticBody2D"]
+position = Vector2(110, 273)
 shape = SubResource("RectangleShape2D_rysoc")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="Bedroom/StaticBody2D"]
@@ -279,44 +289,106 @@ position = Vector2(156, -77)
 scale = Vector2(37.999973, 72)
 texture = SubResource("GradientTexture1D_ir15t")
 
-[node name="PixilFrame0" type="Sprite2D" parent="."]
+[node name="Hallway" type="Sprite2D" parent="."]
 position = Vector2(255, -386)
 texture = ExtResource("15_ir15t")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="PixilFrame0"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Hallway"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
-position = Vector2(-2.5, 19.5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hallway/StaticBody2D"]
+position = Vector2(-41, 19.5)
 shape = SubResource("RectangleShape2D_5newe")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hallway/StaticBody2D"]
 position = Vector2(139.5, 23.5)
 shape = SubResource("RectangleShape2D_37s47")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Hallway/StaticBody2D"]
 position = Vector2(13, 24)
 shape = SubResource("RectangleShape2D_37s47")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Hallway/StaticBody2D"]
 position = Vector2(-239, 24)
 shape = SubResource("RectangleShape2D_37s47")
 
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Hallway/StaticBody2D"]
 position = Vector2(-254.25, 56.75)
 shape = SubResource("RectangleShape2D_bt5mj")
 
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Hallway/StaticBody2D"]
 position = Vector2(-4.25, 117)
 shape = SubResource("RectangleShape2D_e1j6l")
 
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Hallway/StaticBody2D"]
 position = Vector2(200, 114)
 shape = SubResource("RectangleShape2D_pl11u")
 
-[node name="CollisionShape2D8" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="Hallway/StaticBody2D"]
+position = Vector2(215.5, 21)
+shape = SubResource("RectangleShape2D_vtaks")
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="Hallway/StaticBody2D"]
+position = Vector2(233.5, 29.5)
+shape = SubResource("RectangleShape2D_kvpfn")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Hallway/StaticBody2D"]
 position = Vector2(38, 114)
 shape = SubResource("RectangleShape2D_pl11u")
 
-[node name="CollisionShape2D9" type="CollisionShape2D" parent="PixilFrame0/StaticBody2D"]
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="Hallway/StaticBody2D"]
 position = Vector2(-109, 114)
 shape = SubResource("RectangleShape2D_pl11u")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="Hallway/StaticBody2D"]
+position = Vector2(251, 80)
+rotation = -1.5707964
+shape = SubResource("RectangleShape2D_bhx41")
+
+[node name="TravelSpotHome" type="Area2D" parent="."]
+position = Vector2(-513, -229)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("11_kvpfn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TravelSpotHome"]
+position = Vector2(3.5, 1.5)
+shape = SubResource("RectangleShape2D_dinhu")
+
+[node name="TravelSpotHallway" type="Area2D" parent="."]
+position = Vector2(449, -347)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("11_kvpfn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TravelSpotHallway"]
+position = Vector2(1, -1)
+shape = SubResource("RectangleShape2D_kvuet")
+
+[node name="NPC" parent="." node_paths=PackedStringArray("PathFollow") instance=ExtResource("2_lbhrr")]
+position = Vector2(112, -314)
+anim_sheets = Dictionary[StringName, ExtResource("3_u5sy4")]({
+&"Idle": ExtResource("5_gee14"),
+&"Walk": ExtResource("5_gee14")
+})
+PathFollow = NodePath("../Path2D/PathFollow2D")
+dialogue = ExtResource("8_rysoc")
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(174.12698, -305.52502)
+curve = SubResource("Curve2D_kvuet")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(15.873016, 0.5250244)
+rotation = -0.75092906
+script = ExtResource("7_u5sy4")
+
+[node name="Money" parent="." instance=ExtResource("12_dinhu")]
+position = Vector2(-675, -256)
+
+[connection signal="pressed" from="PauseManager/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Resume" to="PauseManager" method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseManager/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MainMenu" to="PauseManager" method="_on_main_menu_pressed"]
+[connection signal="pressed" from="PauseManager/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Quit" to="PauseManager" method="_on_quit_pressed"]
+[connection signal="body_entered" from="TravelSpotHome" to="TravelSpotHome" method="_on_body_entered"]
+[connection signal="body_exited" from="TravelSpotHome" to="TravelSpotHome" method="_on_body_exited"]
+[connection signal="body_entered" from="TravelSpotHallway" to="TravelSpotHallway" method="_on_body_entered"]
+[connection signal="body_exited" from="TravelSpotHallway" to="TravelSpotHallway" method="_on_body_exited"]

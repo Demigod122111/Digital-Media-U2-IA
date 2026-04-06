@@ -1,0 +1,11 @@
+~ start
+if GlobalState.PaidKyle:
+	Kyle: [[Sup Bro!|Thanks for my money.|Hi|Hello|Howdy]]
+else:
+	Kyle: [[Remember you still owe me.|Where's my money?|Let me get my money.|You got my money?]]
+	if GlobalState.GetPickupName() == "Money":
+		Me: [[Here!|I got it.|Right away boss.]]
+		Kyle: [[Good kid!|See you around|You better.]]
+		do GlobalState.behavior_manager.DestroyPickedUpItem()
+		set GlobalState.PaidKyle = true
+=> END
