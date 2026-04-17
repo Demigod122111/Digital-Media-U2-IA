@@ -7,7 +7,8 @@ extends CharacterBody2D
 @export var PathFollow: NPCPathFollow2D
 @onready var player: Player = %Player
 
-@export var dialogue: DialogueResource
+@export_file("*.dialogue") var dialogue_file: String
+@onready var dialogue: DialogueResource = load(dialogue_file) if dialogue_file else null
 @onready var behaviour_manager: BehaviourManager = %BehaviourManager
 
 @onready var animation_tree: AnimationTree = $AnimationTree

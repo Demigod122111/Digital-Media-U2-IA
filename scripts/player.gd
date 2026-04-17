@@ -4,11 +4,17 @@ extends CharacterBody2D
 @export var anim_sheets: Dictionary[StringName, AnimationSheet]
 @export var current_anim_state := &"Idle"
 
+@export var stamina_depletion_rate := 4.0
+@export var stamina_recovery_rate := 2.0
+@export var hunger_depletion_rate := 0.05
+@export var hunger_sprint_depletion_rate := 0.2
+
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
 @onready var behaviour_manager: BehaviourManager = %BehaviourManager
+@onready var game: Game = $".."
 
 var previous_state := &""
 
@@ -31,7 +37,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 	if _event.is_action_released("primary"):
 		behaviour_manager.CallCurrentBehaviour.call_deferred()
 
-func _physics_process(_delta: float):
+func _physics_process(delta: float):
 	input_direction = Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		Input.get_action_strength("down") - Input.get_action_strength("up")
@@ -41,6 +47,16 @@ func _physics_process(_delta: float):
 		input_direction = Vector2.ZERO
 	
 	sprinting = Input.get_action_strength("secondary") != 0
+	
+	if sprinting and input_direction != Vector2.ZERO:
+		if game.stamina > 0:
+			game.stamina -= delta * stamina_depletion_rate
+		else:
+			sprinting = false
+	else:
+		game.stamina += delta * stamina_recovery_rate
+	
+	game.hunger -= delta * (hunger_sprint_depletion_rate if sprinting else hunger_depletion_rate)
 	
 	update_anim_blend(input_direction)
 	

@@ -3,9 +3,11 @@ if GlobalState.PaidKyle:
 	Kyle: [[Sup Bro!|Thanks for my money.|Hi|Hello|Howdy]]
 else:
 	Kyle: [[Remember you still owe me.|Where's my money?|Let me get my money.|You got my money?]]
-	if GlobalState.GetPickupName() == "Money":
+	if GlobalState.game.money >= 125:
 		Me: [[Here!|I got it.|Right away boss.]]
+		do GlobalState.game.money -= 125
 		Kyle: [[Good kid!|See you around|You better.]]
-		do GlobalState.behavior_manager.DestroyPickedUpItem()
 		set GlobalState.PaidKyle = true
+	else:
+		Me: [[I'll get your $125 soon!|It's just $125!|Okay! Okay! I'll bring your $125]]
 => END

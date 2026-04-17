@@ -1,6 +1,7 @@
-[gd_scene load_steps=43 format=3 uid="uid://b6r1u2idhgx5n"]
+[gd_scene load_steps=54 format=3 uid="uid://b6r1u2idhgx5n"]
 
 [ext_resource type="Script" uid="uid://cqhoev7ixn7ls" path="res://scripts/behaviour_manager.gd" id="1_kvpfn"]
+[ext_resource type="Script" uid="uid://v3wjdbt2us13" path="res://scripts/game.gd" id="1_pl11u"]
 [ext_resource type="PackedScene" uid="uid://cefx8583tdqnb" path="res://scenes/special/player.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://mjv1s5i2wlwf" path="res://scenes/special/npc.tscn" id="2_lbhrr"]
 [ext_resource type="Script" uid="uid://dsi6t7oscj5oa" path="res://scripts/bobbing.gd" id="2_vtaks"]
@@ -12,14 +13,19 @@
 [ext_resource type="PackedScene" uid="uid://dia303l1uumqo" path="res://scenes/special/travel.tscn" id="6_vtaks"]
 [ext_resource type="Script" uid="uid://ctd32b6l142rd" path="res://scripts/resources/travel_location.gd" id="7_kvpfn"]
 [ext_resource type="Script" uid="uid://m6lyq5thi4qk" path="res://scripts/path_follow_2d.gd" id="7_u5sy4"]
-[ext_resource type="Resource" uid="uid://8ku8ojegdsbv" path="res://dialogues/kyle.dialogue" id="8_rysoc"]
-[ext_resource type="Texture2D" uid="uid://b6dkfhovhgmk5" path="res://icon.svg" id="9_1kice"]
 [ext_resource type="Script" uid="uid://bwuvs37l0xxsl" path="res://scripts/pause.gd" id="9_264po"]
+[ext_resource type="Texture2D" uid="uid://dc5pxi8debvqo" path="res://sprites/ui/pixil-layer-1.png" id="10_5newe"]
+[ext_resource type="Shader" uid="uid://pelqym5exeq5" path="res://shaders/invert.gdshader" id="10_bhx41"]
+[ext_resource type="Texture2D" uid="uid://cxmdt323bkaxw" path="res://sprites/ui/stamina.png" id="10_bt5mj"]
+[ext_resource type="Shader" uid="uid://byaneix6whd7c" path="res://shaders/fill.gdshader" id="10_e1j6l"]
+[ext_resource type="Texture2D" uid="uid://d3latycvqbqk" path="res://sprites/ui/hunger.png" id="11_e1j6l"]
 [ext_resource type="Script" uid="uid://c3fjgxduapjwb" path="res://scripts/travel_spot.gd" id="11_kvpfn"]
+[ext_resource type="Texture2D" uid="uid://cnov4mlgv2eqy" path="res://sprites/ui/pause.png" id="11_qnb83"]
 [ext_resource type="PackedScene" uid="uid://07nl0iiewkd8" path="res://scenes/special/pickup_item.tscn" id="12_dinhu"]
 [ext_resource type="Texture2D" uid="uid://de44wuvyu5tl1" path="res://sprites/map/pixil-layer-Layer 1.png" id="13_kvuet"]
 [ext_resource type="Texture2D" uid="uid://sml3xf6ys2n" path="res://sprites/map/pixil-layer-1.png" id="14_trtic"]
 [ext_resource type="Texture2D" uid="uid://dl6tuvgejv4wo" path="res://sprites/map/pixil-frame-0.png" id="15_ir15t"]
+[ext_resource type="Script" uid="uid://cyqdhtpn5nn5d" path="res://scripts/money_pickup_item.gd" id="26_bhx41"]
 
 [sub_resource type="Resource" id="Resource_dinhu"]
 script = ExtResource("7_kvpfn")
@@ -34,6 +40,29 @@ Name = &"School"
 Point = Vector2(451, -343)
 Facing = Vector2(0, 1)
 metadata/_custom_type_script = "uid://ctd32b6l142rd"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sww3w"]
+shader = ExtResource("10_bhx41")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1j6l"]
+bg_color = Color(0.015686275, 0.015686275, 0.015686275, 0.15686275)
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pl11u"]
+shader = ExtResource("10_e1j6l")
+shader_parameter/fill = 1.0
+
+[sub_resource type="SystemFont" id="SystemFont_bt5mj"]
+font_names = PackedStringArray("Sans-Serif")
+generate_mipmaps = true
+hinting = 2
+subpixel_positioning = 3
+multichannel_signed_distance_field = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bhx41"]
+shader = ExtResource("10_e1j6l")
+shader_parameter/fill = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trtic"]
 size = Vector2(193, 24)
@@ -100,6 +129,7 @@ point_count = 29
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_pl11u")
 
 [node name="BehaviourManager" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -166,11 +196,105 @@ PlayerBody = NodePath("../../Player")
 Locations = Array[ExtResource("7_kvpfn")]([SubResource("Resource_dinhu"), SubResource("Resource_vtaks")])
 
 [node name="PauseButton" type="TouchScreenButton" parent="UI"]
+material = SubResource("ShaderMaterial_sww3w")
 position = Vector2(1063, 12)
 scale = Vector2(0.5, 0.5)
-texture_normal = ExtResource("9_1kice")
-texture_pressed = ExtResource("9_1kice")
+texture_normal = ExtResource("11_qnb83")
+texture_pressed = ExtResource("11_qnb83")
 action = "ui_cancel"
+
+[node name="Stats" type="Panel" parent="UI"]
+offset_right = 202.0
+offset_bottom = 100.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_e1j6l")
+
+[node name="StaminaBar" type="TextureRect" parent="UI/Stats"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_pl11u")
+layout_mode = 0
+offset_left = 44.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 45.0
+texture = ExtResource("10_bt5mj")
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Stats/StaminaBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="StaminaLabel" type="RichTextLabel" parent="UI/Stats/StaminaBar/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = SubResource("SystemFont_bt5mj")
+theme_override_font_sizes/normal_font_size = 15
+text = "100%"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HungerBar" type="TextureRect" parent="UI/Stats"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_bhx41")
+layout_mode = 0
+offset_left = 55.0
+offset_top = 49.0
+offset_right = 123.0
+offset_bottom = 73.0
+texture = ExtResource("11_e1j6l")
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Stats/HungerBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="HungerLabel" type="RichTextLabel" parent="UI/Stats/HungerBar/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = SubResource("SystemFont_bt5mj")
+theme_override_font_sizes/normal_font_size = 12
+text = "100%"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainPanel" type="TextureRect" parent="UI/Stats"]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 100.0
+texture = ExtResource("10_5newe")
+stretch_mode = 6
+
+[node name="MoneyLabel" type="RichTextLabel" parent="UI/Stats"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 38.0
+offset_top = 79.0
+offset_right = 129.0
+offset_bottom = 97.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = SubResource("SystemFont_bt5mj")
+theme_override_font_sizes/normal_font_size = 14
+text = "$0.00"
+scroll_active = false
+vertical_alignment = 1
 
 [node name="PauseManager" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -371,7 +495,7 @@ anim_sheets = Dictionary[StringName, ExtResource("3_u5sy4")]({
 &"Walk": ExtResource("5_gee14")
 })
 PathFollow = NodePath("../Path2D/PathFollow2D")
-dialogue = ExtResource("8_rysoc")
+dialogue_file = "uid://8ku8ojegdsbv"
 
 [node name="Path2D" type="Path2D" parent="."]
 position = Vector2(174.12698, -305.52502)
@@ -384,6 +508,8 @@ script = ExtResource("7_u5sy4")
 
 [node name="Money" parent="." instance=ExtResource("12_dinhu")]
 position = Vector2(-675, -256)
+script = ExtResource("26_bhx41")
+Amount = 250.0
 
 [connection signal="pressed" from="PauseManager/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Resume" to="PauseManager" method="_on_resume_pressed"]
 [connection signal="pressed" from="PauseManager/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MainMenu" to="PauseManager" method="_on_main_menu_pressed"]

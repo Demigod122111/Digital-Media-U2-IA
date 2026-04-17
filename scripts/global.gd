@@ -1,7 +1,9 @@
 extends Node2D
 
+var game: Game
 var behavior_manager: BehaviourManager
 var picked_up_item: Pickup
+
 var PaidKyle := false
 
 func GetPickupName() -> String:
